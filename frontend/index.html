@@ -1,37 +1,100 @@
-const API_URL = "https://cashflow-lnaf.onrender.com";
+<!DOCTYPE html>
+<html>
+<head>
+<title>CashFlow72</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-async function trackOrder() {
-    const orderId = document.getElementById("orderId").value;
-
-    if (!orderId) {
-        alert("Enter order ID");
-        return;
-    }
-
-    try {
-        const response = await fetch(`${API_URL}/track/${orderId}`);
-        const data = await response.json();
-
-        document.getElementById("result").innerHTML =
-            "Status: " + data.status;
-    } catch (error) {
-        document.getElementById("result").innerHTML =
-            "Error connecting to server";
-    }
+<style>
+body {
+font-family: Arial;
+padding: 20px;
+background: #f4f4f4;
 }
 
-async function makePayment() {
-    try {
-        const response = await fetch(`${API_URL}/payment`, {
-            method: "POST"
-        });
-
-        const data = await response.json();
-
-        document.getElementById("paymentResult").innerHTML =
-            "Payment ID: " + data.payment_id;
-    } catch (error) {
-        document.getElementById("paymentResult").innerHTML =
-            "Payment failed";
-    }
+.card {
+background: white;
+padding: 15px;
+margin: 10px;
+border-radius: 10px;
 }
+
+button {
+padding: 10px;
+background: black;
+color: white;
+border: none;
+cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>CashFlow72</h1>
+<p>From ₹0 to ₹100,000 in 72 hours</p>
+
+<h2>Services</h2>
+
+<div id="services"></div>
+
+<h2>Track Order</h2>
+
+<input id="orderId" placeholder="Enter Order ID">
+<button onclick="trackOrder()">Track</button>
+
+<p id="result"></p>
+
+<script>
+
+const API = "https://cashflow-inat.onrender.com"
+
+async function loadServices(){
+
+const services = [
+{name:"Resume Optimization",price:"₹199"},
+{name:"LinkedIn Optimization",price:"₹149"},
+{name:"Business Plan",price:"₹299"},
+{name:"SEO Content",price:"₹249"}
+]
+
+let html=""
+
+services.forEach(s=>{
+html+=`
+<div class="card">
+<h3>${s.name}</h3>
+<p>${s.price}</p>
+<button onclick="order()">Order</button>
+</div>
+`
+})
+
+document.getElementById("services").innerHTML=html
+
+}
+
+function order(){
+
+fetch(API+"/create-order",{method:"POST"})
+.then(r=>r.json())
+.then(d=>alert("Order Created: "+d.id))
+
+}
+
+function trackOrder(){
+
+const id=document.getElementById("orderId").value
+
+fetch(API+"/track/"+id)
+.then(r=>r.json())
+.then(d=>document.getElementById("result").innerText=d.status)
+
+}
+
+loadServices()
+
+</script>
+
+</body>
+</html>
