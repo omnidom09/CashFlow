@@ -1,0 +1,8 @@
+[
+  {
+    "id": "upi",
+    "name": "UPI Payment",
+    "upi_id": "yourupi@bank",
+    "qr_image": "https://example.com/upi-qr.png"
+  }
+]
