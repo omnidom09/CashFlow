@@ -134,7 +134,31 @@ def admin_update(data: dict):
         orders[order_id]["delivery"] = data["delivery"]
 
         save_orders(orders)
+         
+        return {"status": "updated"}
+
+    return {"error": "not found"} 
+import json
+
+@app.get("/sections")
+def get_sections():
+    with open("sections.json") as f:
+        return json.load(f)
+
+@app.post("/add-section")
+def add_section(section: dict):
+    with open("sections.json") as f:
+        data = json.load(f)
+
+    data.append(section)
+
+    with open("sections.json", "w") as f:
+        json.dump(data, f)
+
+    return {"status": "ok"}
+
 
         return {"status": "updated"}
+
 
     return {"error": "not found"}
