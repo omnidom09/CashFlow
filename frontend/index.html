@@ -1,100 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>CashFlow72</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body {
-font-family: Arial;
-padding: 20px;
-background: #f4f4f4;
-}
-
-.card {
-background: white;
-padding: 15px;
-margin: 10px;
-border-radius: 10px;
-}
-
-button {
-padding: 10px;
-background: black;
-color: white;
-border: none;
-cursor: pointer;
-}
-</style>
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<header>
 <h1>CashFlow72</h1>
-<p>From ₹0 to ₹100,000 in 72 hours</p>
+<p>From ₹0 to ₹100000 in 72 hours</p>
+</header>
 
+<section>
 <h2>Services</h2>
+<div id="servicesList"></div>
+</section>
 
-<div id="services"></div>
+<section>
+<h2>Courses</h2>
+<div id="coursesList"></div>
+</section>
 
-<h2>Track Order</h2>
+<section>
+<h2>E-Books</h2>
+<div id="ebooksList"></div>
+</section>
 
-<input id="orderId" placeholder="Enter Order ID">
-<button onclick="trackOrder()">Track</button>
+<section>
+<h2>How It Works</h2>
 
-<p id="result"></p>
+<ol>
+<li>Select service</li>
+<li>Fill order form</li>
+<li>Make payment</li>
+<li>Send payment proof</li>
+<li>Receive delivery</li>
+</ol>
 
-<script>
+</section>
 
-const API = "https://cashflow-inat.onrender.com"
+<section>
+<h2>About</h2>
 
-async function loadServices(){
+<p>
+CashFlow72 helps people build income systems quickly with minimal capital.
+</p>
 
-const services = [
-{name:"Resume Optimization",price:"₹199"},
-{name:"LinkedIn Optimization",price:"₹149"},
-{name:"Business Plan",price:"₹299"},
-{name:"SEO Content",price:"₹249"}
-]
+</section>
 
-let html=""
+<footer>
+<p>CashFlow72 © 2026</p>
+</footer>
 
-services.forEach(s=>{
-html+=`
-<div class="card">
-<h3>${s.name}</h3>
-<p>${s.price}</p>
-<button onclick="order()">Order</button>
-</div>
-`
-})
-
-document.getElementById("services").innerHTML=html
-
-}
-
-function order(){
-
-fetch(API+"/create-order",{method:"POST"})
-.then(r=>r.json())
-.then(d=>alert("Order Created: "+d.id))
-
-}
-
-function trackOrder(){
-
-const id=document.getElementById("orderId").value
-
-fetch(API+"/track/"+id)
-.then(r=>r.json())
-.then(d=>document.getElementById("result").innerText=d.status)
-
-}
-
-loadServices()
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
